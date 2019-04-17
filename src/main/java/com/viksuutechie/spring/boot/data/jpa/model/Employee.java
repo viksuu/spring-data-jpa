@@ -41,6 +41,10 @@ public class Employee implements Serializable {
 
 	@Column(name = "EMPLOYEE_NAME", unique = false, nullable = false, columnDefinition = "VARCHAR(100)")
 	private String employee_name;
+	
+	
+	@Column(name = "EMPLOYEE_CODE", length=30)
+	private String employeeCode;
 
 	@Column(name = "LAPTOP_ID", nullable = false)
 	private Integer laptopId;
@@ -63,7 +67,12 @@ public class Employee implements Serializable {
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "EMPLOYEE_ADDRESS", joinColumns = @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID"), inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID", referencedColumnName = "ADDRESS_ID"))
 	private List<Address> addresses;
+	
+	@OneToMany
+	@JoinColumn(name = "EMPLOYEE_ID", insertable = false, updatable = false, nullable = false)
+	private List<Loan> loans;
 
+}
 	
 /*	
 	 public void addEmailAddress(EmailId email) {
@@ -75,4 +84,3 @@ public class Employee implements Serializable {
 	        emailId.remove(emailId);
 	        email.setEmployee(null);
 	    }*/
-}
